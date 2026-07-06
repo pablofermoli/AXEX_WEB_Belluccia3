@@ -80,3 +80,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+
+/*=========================================
+HISTORY GALLERY
+=========================================*/
+
+const historyMain=document.getElementById("historyMain");
+
+const historyThumbs=document.querySelectorAll(".history-thumb");
+
+let currentHistory=0;
+
+function changeHistory(i){
+
+historyMain.style.opacity=0;
+
+setTimeout(()=>{
+
+historyMain.src=historyThumbs[i].dataset.full;
+
+historyThumbs.forEach(img=>img.classList.remove("active"));
+
+historyThumbs[i].classList.add("active");
+
+historyMain.style.opacity=1;
+
+currentHistory=i;
+
+},180);
+
+}
+
+historyThumbs.forEach((img,index)=>{
+
+img.onclick=()=>changeHistory(index);
+
+});
+
+setInterval(()=>{
+
+let next=currentHistory+1;
+
+if(next>=historyThumbs.length){
+
+next=0;
+
+}
+
+changeHistory(next);
+
+},3500);
